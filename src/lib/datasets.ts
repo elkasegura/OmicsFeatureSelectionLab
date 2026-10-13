@@ -82,7 +82,7 @@ export const DATASETS: DatasetMeta[] = [
     samples: 100,
     features: 10000,
     classes: "10 face classes",
-    file: "python/datasets/pixraw10p.mat",
+    file: "python/datasets/pixraw10P.mat",
     description:
     "Li, J., Cheng, K., Wang, S., Morstatter, F., Trevino, R. P., Tang, J., & Liu, H. (2017). Feature selection: A data perspective. ACM Computing Surveys, 50(6), Article 94. https://doi.org/10.1145/3136625",
   },
