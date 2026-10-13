@@ -1,41 +1,39 @@
-# OmicsLab Feature Explorer
+# OmicsFeatureSelectionLab
 
-Aplicación web para ejecutar métodos de **selección no supervisada de características** sobre datos ómicos de alta dimensión y validar el subconjunto seleccionado con clasificadores.
+Web application for running unsupervised feature selection methods on high-dimensional omics data and validating the selected feature subset using classifiers.
 
-## Arquitectura
+## Architecture
 
-La implementación científica de los modelos vive únicamente en Python:
+The scientific implementation of the models resides exclusively in Python:
 
-```text
 React / TanStack Start
-        │
-        ▼
+        |
+        v
 src/lib/analysis.functions.ts
-        │
-        ▼
+        |
+        v
 src/lib/pipeline.server.ts
-        │
-        ▼
+        |
+        v
 src/lib/python-models.server.ts
-        │ JSON stdin/stdout
-        ▼
+        | JSON stdin/stdout
+        v
 python/runner.py
-        │
-        ▼
-python/models/registry.py       # solo despacho/configuración
-        │
-        ├── MCFS.py
-        ├── NDFS.py
-        ├── AEFS.py
-        ├── DGA.py
-        ├── DRAE.py
-        ├── RFAE.py
-        └── SMLAE.py
-```
+        |
+        v
+python/models/registry.py       # Dispatch/configuration only
+        |
+        |-- MCFS.py
+        |-- NDFS.py
+        |-- AEFS.py
+        |-- DGA.py
+        |-- DRAE.py
+        |-- RFAE.py
+        |-- SMLAE.py
 
-No hay ports de los algoritmos de selección de características en TypeScript ni clases `*Adapter` que reimplementen una segunda interfaz sobre los modelos.
+There are no TypeScript ports of the feature selection algorithms or *Adapter classes that reimplement a second interface for the models.
 
-## Modelos
+## Models
 
 - MCFS — Multi-Cluster Feature Selection
 - NDFS — Nonnegative Discriminative Feature Selection
@@ -45,58 +43,80 @@ No hay ports de los algoritmos de selección de características en TypeScript n
 - RFAE — Robust Feature AutoEncoder
 - SMLAE — Sparse Manifold Learning AutoEncoder
 
-`python/models/construct_W.py` es la única implementación del grafo de afinidad usado por MCFS/NDFS.
+python/models/construct_W.py is the only implementation of the affinity graph used by MCFS/NDFS.
 
-`python/models/Functions.py` contiene la función `top_k_keepWeights_1` suministrada para RFAE; `RFAE.py` la importa directamente y no mantiene otra copia NumPy de esa función.
+python/models/Functions.py contains the provided top_k_keepWeights_1 function for RFAE. RFAE.py imports it directly and does not maintain a separate NumPy implementation of that function.
 
-## Instalación
+## Installation
 
 ### JavaScript
 
-```bash
 npm install
 npm run dev
-```
 
 ### Python
 
-```bash
 python -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r python/requirements.txt
-```
 
-Para indicar el intérprete Python usado por el servidor:
+To specify the Python interpreter used by the server:
 
-```bash
-export OMICSLAB_PYTHON=/ruta/a/.venv/bin/python
+export OMICSLAB_PYTHON=/path/to/.venv/bin/python
 npm run dev
-```
 
-## Protocolo Python
+## Python Protocol
 
-`python/runner.py` recibe un JSON por `stdin`, ejecuta el modelo solicitado mediante `python/models/registry.py` y devuelve un score por feature, el ranking descendente y el seed usado por `stdout`. Los mensajes de entrenamiento se redirigen a `stderr` para no romper la respuesta JSON.
+python/runner.py receives a JSON object via stdin, executes the requested model through python/models/registry.py, and returns a score for each feature, the descending feature ranking, and the seed used via stdout.
 
-## Reproducibilidad
+Training logs are redirected to stderr to prevent interference with the JSON response.
 
-Todas las ejecuciones usan un **seed global fijo de 42**. El servidor fija `PYTHONHASHSEED`, NumPy, Python `random`, PyTorch y TensorFlow/Keras, activa operaciones deterministas cuando el framework lo permite y desactiva fuentes de aleatoriedad innecesarias como el orden de validación de RFAE. El clasificador y el estimador SHAP usan igualmente secuencias pseudoaleatorias derivadas del seed 42.
+## Reproducibility
 
-Con el mismo dataset, modelo y parámetros, una nueva pulsación de `RUN` debe producir el mismo ranking y los mismos scores.
+All runs use a fixed global random seed of 42.
+
+The server sets PYTHONHASHSEED and configures NumPy, Python's random module, PyTorch, and TensorFlow/Keras with the same seed. It enables deterministic operations whenever supported by the framework and disables unnecessary sources of randomness, such as RFAE's validation shuffling.
+
+The classifier and SHAP estimator also use pseudorandom sequences derived from seed 42.
+
+Given the same dataset, model, and parameters, clicking RUN again should produce identical feature rankings and scores.
 
 ## Datasets
 
-Los datasets integrados se conservan **una sola vez** como archivos `.mat` en `python/datasets/`. `python/dataset_runner.py` los carga con SciPy y entrega `X`, `Y` y los nombres de feature al servidor; no hay copias JSON de los datasets.
+Built-in datasets are stored only once as .mat files in python/datasets/.
 
-El repositorio incluye Colon y los 15 datasets suministrados en `data.zip`: Madelon, USPS, GLI-85, ORL Raws 10P, COIL20, Pixraw 10P, GLIOMA, Isolet, Leukemia, BASEHOCK, Lymphoma, Lung Small, SMK-CAN-187, PCMAC y RELATHE.
+python/dataset_runner.py loads them using SciPy and provides X, Y, and feature names to the server. No JSON copies of the datasets are maintained.
 
-Los CSV subidos deben representar muestras por filas y features por columnas. Si incluyen etiquetas, la interfaz reconoce una columna `y`, `label`, `class` o `target`. Las etiquetas pueden ser numéricas o categóricas de texto y se codifican internamente.
+The repository includes Colon and the 15 datasets provided in data.zip:
 
-La validación con Random Forest / Gradient Boosting admite clasificación binaria y multiclase. `Accuracy` se calcula globalmente y `Precision`, `Recall` y `F1` se muestran como promedio **macro** entre clases, de modo que cada categoría pesa por igual. La validación cruzada es estratificada (hasta 5 folds, limitada por el tamaño de la clase minoritaria).
+- Madelon
+- USPS
+- GLI-85
+- ORL Raws 10P
+- COIL20
+- Pixraw 10P
+- GLIOMA
+- Isolet
+- Leukemia
+- BASEHOCK
+- Lymphoma
+- Lung Small
+- SMK-CAN-187
+- PCMAC
+- RELATHE
+
+Uploaded CSV files must contain samples as rows and features as columns.
+
+If labels are included, the interface recognizes a column named y, label, class, or target. Labels may be numeric or categorical text values and are encoded internally.
+
+Validation using Random Forest or Gradient Boosting supports both binary and multiclass classification.
+
+Accuracy is calculated globally, while Precision, Recall, and F1 are reported using macro averaging across classes, ensuring that each category contributes equally.
+
+Cross-validation is stratified, with up to 5 folds, limited by the number of samples in the minority class.
 
 ## Build
 
-```bash
 npm run build
-```
 
-En producción, el proceso del servidor debe tener acceso a `python/` y a un entorno con las dependencias de `python/requirements.txt` instaladas.
+In production, the server process must have access to the python/ directory and a Python environment with all dependencies listed in python/requirements.txt installed.
