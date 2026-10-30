@@ -20,7 +20,7 @@ export const DATASETS: DatasetMeta[] = [
     file: "python/datasets/colon.mat",
     description: "Alon, U., Barkai, N., Notterman, D. A., Gish, K., Ybarra, S., Mack, D., & Levine, A. J. (1999). Broad patterns of gene expression revealed by clustering analysis of tumor and normal colon tissues probed by oligonucleotide arrays. Proceedings of the National Academy of Sciences, 96(12), 6745–6750. DOI: 10.1073/pnas.96.12.6745",
   },
-  {
+  /*{
     id: "madelon",
     name: "Madelon",
     omics: "Artificial dataset",
@@ -29,8 +29,9 @@ export const DATASETS: DatasetMeta[] = [
     classes: "-1 (1300) / 1 (1300)",
     file: "python/datasets/madelon.mat",
     description: "Guyon, I., Gunn, S., Ben-Hur, A., & Dror, G. (2004). Result Analysis of the NIPS 2003 Feature Selection Challenge. Advances in Neural Information Processing Systems, 17, 545–552",
-  },
-  {
+  },*/
+  
+  /*{
   id: "usps",
   name: "USPS",
   omics: "Handwritten digit images (16×16 grayscale)",
@@ -40,7 +41,7 @@ export const DATASETS: DatasetMeta[] = [
   file: "python/datasets/USPS.mat",
   description:
     "Hull, J. J. (1994). A database for handwritten text recognition research. IEEE Transactions on Pattern Analysis and Machine Intelligence, 16(5), 550–554. https://doi.org/10.1109/34.291440",
-  },
+  },*/
 
   {
   id: "gli-85",
@@ -53,7 +54,7 @@ export const DATASETS: DatasetMeta[] = [
   description:
     "Freije, W. A., Castro-Vargas, F. E., Fang, Z., Horvath, S., Cloughesy, T., Liau, L. M., Mischel, P. S., & Nelson, S. F. (2004). Gene expression profiling of gliomas strongly predicts survival. Cancer Research, 64(18), 6503–6510. https://doi.org/10.1158/0008-5472.CAN-04-0452",
   },
-  {
+  /*{
     id: "orlraws10p",
     name: "ORL Raws 10P",
     omics: "Face images (raw grayscale pixels)",
@@ -63,7 +64,7 @@ export const DATASETS: DatasetMeta[] = [
     file: "python/datasets/orlraws10P.mat",
     description:
       "Samaria, F. S., & Harter, A. C. (1994). Parameterisation of a stochastic model for human face identification. Proceedings of the 2nd IEEE Workshop on Applications of Computer Vision, 138–142. https://doi.org/10.1109/ACV.1994.341300",
-    },
+    },*/
   {
     id: "coil20",
     name: "COIL20",
@@ -75,7 +76,7 @@ export const DATASETS: DatasetMeta[] = [
     description:
     "Nene, S. A., Nayar, S. K., & Murase, H. (1996). Columbia Object Image Library (COIL-20). Technical Report CUCS-005-96, Columbia University.",
   },
-  {
+  /*{
     id: "pixraw10p",
     name: "Pixraw 10P",
     omics: "Face images (raw pixels)",
@@ -85,7 +86,7 @@ export const DATASETS: DatasetMeta[] = [
     file: "python/datasets/pixraw10P.mat",
     description:
     "Li, J., Cheng, K., Wang, S., Morstatter, F., Trevino, R. P., Tang, J., & Liu, H. (2017). Feature selection: A data perspective. ACM Computing Surveys, 50(6), Article 94. https://doi.org/10.1145/3136625",
-  },
+  },*/
   {
     id: "glioma",
     name: "GLIOMA",
@@ -97,7 +98,7 @@ export const DATASETS: DatasetMeta[] = [
     description:
     "Nutt, C. L., Mani, D. R., Betensky, R. A., Tamayo, P., Cairncross, J. G., Ladd, C., et al. (2003). Gene expression-based classification of malignant gliomas correlates better with survival than histological classification. Cancer Research, 63(7), 1602–1607.",
   },
-  {
+  /*{
     id: "isolet",
     name: "Isolet",
     omics: "Spoken letter recognition (acoustic features)",
@@ -107,7 +108,7 @@ export const DATASETS: DatasetMeta[] = [
     file: "python/datasets/Isolet.mat",
     description:
     "Cole, R., & Fanty, M. (1991). ISOLET [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C51G69",
-  },
+  },*/
   {
     id: "leukemia",
     name: "Leukemia",
@@ -119,7 +120,7 @@ export const DATASETS: DatasetMeta[] = [
     description:
     "Golub, T. R., Slonim, D. K., Tamayo, P., Huard, C., Gaasenbeek, M., Mesirov, J. P., Coller, H., Loh, M. L., Downing, J. R., Caligiuri, M. A., Bloomfield, C. D., & Lander, E. S. (1999). Molecular classification of cancer: Class discovery and class prediction by gene expression monitoring. Science, 286(5439), 531–537. https://doi.org/10.1126/science.286.5439.531",
   },
-  {
+  /*{
     id: "basehock",
     name: "BASEHOCK",
     omics: "Text classification (20 Newsgroups)",
@@ -129,7 +130,7 @@ export const DATASETS: DatasetMeta[] = [
     file: "python/datasets/BASEHOCK.mat",
     description:
     "Lang, K. (1995). NewsWeeder: Learning to filter netnews. Proceedings of the Twelfth International Conference on Machine Learning, 331–339.",
-  },
+  },*/
   {
     id: "lymphoma",
     name: "Lymphoma",
@@ -163,7 +164,7 @@ export const DATASETS: DatasetMeta[] = [
     description:
     "Spira, A., Beane, J. E., Shah, V., Steiling, K., Liu, G., Schembri, F., et al. (2007). Airway epithelial gene expression in the diagnostic evaluation of smokers with suspect lung cancer. Nature Medicine, 13, 361–366. https://doi.org/10.1038/nm1556",
   },
-  {
+  /*{
     id: "pcmac",
     name: "PCMAC",
     omics: "Text classification (20 Newsgroups)",
@@ -173,8 +174,8 @@ export const DATASETS: DatasetMeta[] = [
     file: "python/datasets/PCMAC.mat",
     description:
     "Lang, K. (1995). NewsWeeder: Learning to filter netnews. Proceedings of the Twelfth International Conference on Machine Learning, 331–339.",
-  },
-  {
+  },*/
+  /*{
     id: "relathe",
     name: "RELATHE",
     omics: "Text classification (20 Newsgroups)",
@@ -183,7 +184,7 @@ export const DATASETS: DatasetMeta[] = [
     classes: "Religion (779) / Atheism (648)",
     file: "python/datasets/RELATHE.mat",
     description: "Lang, K. (1995). NewsWeeder: Learning to filter netnews. Proceedings of the Twelfth International Conference on Machine Learning, 331–339.",
-  },
+  },*/
 ];
 
 export interface ModelParameterMeta {
